@@ -11,7 +11,7 @@ class AlertHelper
         $alerts = [];
 
         // pH Level Alert
-        if ($logData['ph_value'] < 6.0 || $logData['ph_value'] > 9.0) {
+        if ($logData['ph_value'] > 9.0) {
             $alerts[] = [
                 'message' => "Critical Alert: pH level at {$logData['ph_value']}. Possible heavy contamination.",
                 'type' => 'alert',
