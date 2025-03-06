@@ -86,10 +86,9 @@ class AlertHelper
     {
         if ($phValue >= 6.5 && $phValue <= 8.5) {
             return "Safe: pH level at {$phValue}. Within normal range.";
-        } elseif (($phValue >= 6.0 && $phValue < 6.5) ||
-                  ($phValue > 8.5 && $phValue <= 9.0)) {
+        } elseif ( $phValue < 6.0 ) {
             return "Not Safe: pH level at {$phValue}. Check for industrial or household chemicals.";
-        } elseif ($phValue < 6.0 || $phValue > 9.0) {
+        } elseif ( $phValue > 9.0) {
             return "High pH Level: pH level at {$phValue}. Possible heavy contamination.";
         }
         return null;
