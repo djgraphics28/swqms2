@@ -27,15 +27,15 @@ class AlertHelper
         }
 
         // Conductivity Alert
-        if ($logData['conductivity'] > 1500) {
+        if ($logData['conductivity'] > 10000) {
             $alerts[] = [
-                'message' => "Critical Alert: Conductivity at {$logData['conductivity']} µS/cm. Possible high contamination.",
+                'message' => "Critical Alert: Conductivity at {$logData['conductivity']} µS/cm. Extremely High Conductivity, Dangerous, Likely Contaminated.",
                 'type' => 'alert',
                 'category' => 'Conductivity'
             ];
-        } elseif ($logData['conductivity'] >= 1000 && $logData['conductivity'] <= 1500) {
+        } elseif ($logData['conductivity'] >= 1000 && $logData['conductivity'] <= 10000) {
             $alerts[] = [
-                'message' => "Mild Alert: Conductivity at {$logData['conductivity']} µS/cm. Possible low pollution.",
+                'message' => "Mild Alert: Conductivity at {$logData['conductivity']} µS/cm. High Conductivity, May Indicate Pollution or Hard Water.",
                 'type' => 'warning',
                 'category' => 'Conductivity'
             ];
@@ -57,15 +57,15 @@ class AlertHelper
         }
 
         // Temperature Alert
-        if ($logData['temperature'] >= 35) {
+        if ($logData['temperature'] > 32) {
             $alerts[] = [
-                'message' => "Critical Alert: Temperature at {$logData['temperature']}°C. Possible industrial discharge or extreme weather.",
+                'message' => "Critical Alert: Temperature at {$logData['temperature']}°C. High temperature, Possible industrial discharge or extreme weather.",
                 'type' => 'alert',
                 'category' => 'Temperature'
             ];
-        } elseif ($logData['temperature'] >= 31 && $logData['temperature'] <= 34) {
+        } elseif ($logData['temperature'] < 26) {
             $alerts[] = [
-                'message' => "Mild Alert: Temperature at {$logData['temperature']}°C. Possible heat accumulation.",
+                'message' => "Mild Alert: Temperature at {$logData['temperature']}°C. Low Temp, Unusual, Check Sources.",
                 'type' => 'warning',
                 'category' => 'Temperature'
             ];

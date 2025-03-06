@@ -20,6 +20,7 @@ Route::middleware(['auth'])->group(function () {
 
     Volt::route('dashboard', 'dashboard')->name('dashboard');
     Volt::route('devices', 'devices')->name('devices');
+    Volt::route('logs', 'logs')->name('logs');
 });
 
 require __DIR__.'/auth.php';
