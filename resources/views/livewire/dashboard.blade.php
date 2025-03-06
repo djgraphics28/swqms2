@@ -57,6 +57,7 @@ new class extends Component {
                     {{ $device->latest_log->ph_value ?? 0 }}
                 </p>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Safe range: 6.5 - 8.5</p>
+                <p>{{\App\Helpers\AlertHelper::getPhLevelLabel($device->latest_log->ph_value) }}</p>
             </div>
 
             <!-- Temperature -->
@@ -74,7 +75,7 @@ new class extends Component {
                 <p class="text-3xl font-bold text-yellow-500 dark:text-yellow-400" wire:loading.class="animate-pulse">
                     {{ $device->latest_log->turbidity ?? 0 }} NTU
                 </p>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Max limit: 5 NTU</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Max limit: 100 NTU</p>
             </div>
 
             <!-- Conductivity -->
