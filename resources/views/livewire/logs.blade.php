@@ -1,13 +1,21 @@
 <?php
 
 use Livewire\Volt\Component;
-use App\Models\Device;
+use App\Models\DeviceLog;
+use Livewire\WithPagination;
 
 new class extends Component {
+    use WithPagination;
+
+    protected $paginationTheme = 'tailwind';
+
+    public $perPage = 10;
+    public $perPageOptions = [10, 25, 50, 100];
+
     public function with(): array
     {
         return [
-            'logs' => Device::with('logs')->latest()->get(),
+            'logs' => DeviceLog::latest()->paginate($this->perPage),
         ];
     }
 }; ?>
@@ -21,6 +29,14 @@ new class extends Component {
                     Logs
                 </h1>
                 <p class="text-gray-600 dark:text-gray-400">Real-time logs for water monitoring</p>
+            </div>
+            <div class="flex items-center space-x-4">
+                <select wire:model.live="perPage"
+                    class="rounded-md border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                    @foreach ($perPageOptions as $option)
+                        <option value="{{ $option }}">{{ $option }} per page</option>
+                    @endforeach
+                </select>
             </div>
         </div>
 
@@ -51,32 +67,39 @@ new class extends Component {
                     </tr>
                 </thead>
                 <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                    @foreach ($logs as $device)
-                        @foreach ($device->logs as $log)
-                            <tr class="{{ $loop->parent->first && $loop->first ? 'bg-green-100 dark:bg-green-800' : '' }}">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
-                                    {{ $log->ph_value }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
-                                    {{ $log->temperature }}°C
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
-                                    {{ $log->turbidity }} NTU
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
-                                    {{ $log->conductivity }} µS/cm
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
-                                    {{ $log->voltage }} mg/L
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {{ $log->created_at->diffForHumans() }}
-                                </td>
-                            </tr>
-                        @endforeach
+                    @foreach ($logs as $log)
+                        <tr class="{{ $loop->first ? 'bg-green-100 dark:bg-green-800' : '' }}">
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
+                                {{ $log->ph_value }}
+                            </td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
+                                {{ $log->temperature }}°C
+                            </td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
+                                {{ $log->turbidity }} NTU
+                            </td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
+                                {{ $log->conductivity }} µS/cm
+                            </td>
+                            <td
+                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-center">
+                                {{ $log->voltage }} mg/L
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                {{ $log->created_at->diffForHumans() }}
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
+
+            <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
+                {{ $logs->links() }}
+            </div>
         </div>
     </div>
 </div>
