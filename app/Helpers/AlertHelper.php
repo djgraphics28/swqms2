@@ -41,13 +41,13 @@ class AlertHelper
         }
 
         // Turbidity Alert
-        if ($logData['turbidity'] > 5) {
+        if ($logData['turbidity'] > 100) {
             $alerts[] = [
                 'message' => "Critical Alert: Turbidity at {$logData['turbidity']} NTU. Possible heavy sedimentation or pollution.",
                 'type' => 'alert',
                 'category' => 'Turbidity'
             ];
-        } elseif ($logData['turbidity'] >= 4 && $logData['turbidity'] <= 5) {
+        } elseif ($logData['turbidity'] >= 75 && $logData['turbidity'] <= 100) {
             $alerts[] = [
                 'message' => "Mild Alert: Turbidity at {$logData['turbidity']} NTU. Possible algae growth or soil erosion.",
                 'type' => 'warning',
