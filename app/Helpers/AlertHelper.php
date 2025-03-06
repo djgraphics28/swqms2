@@ -17,8 +17,7 @@ class AlertHelper
                 'type' => 'alert',
                 'category' => 'pH Level'
             ];
-        } elseif (($logData['ph_value'] >= 6.0 && $logData['ph_value'] <= 6.5) ||
-                  ($logData['ph_value'] >= 8.5 && $logData['ph_value'] <= 9.0)) {
+        } elseif (($logData['ph_value'] >= 0 && $logData['ph_value'] <= 6) ) {
             $alerts[] = [
                 'message' => "Mild Alert: pH level at {$logData['ph_value']}. Check for industrial or household chemicals.",
                 'type' => 'warning',
