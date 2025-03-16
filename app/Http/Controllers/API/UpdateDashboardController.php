@@ -24,7 +24,7 @@ class UpdateDashboardController extends Controller
         // Create the log entry
         $logData = [
             'temperature' => $request->temperature,
-            'voltage' => $request->voltage,
+            'voltage' => $request->DO_mgL,
             'ph_value' => $request->ph_value,
             'turbidity' => $request->turbidity,
             'conductivity' => $request->conductivity
